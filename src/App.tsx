@@ -43,7 +43,7 @@ function App() {
             ref={buttonRef}
             onClick={handleButtonClick}
           >
-            install app 5
+            install app 6
           </button>
         )}
       </header>
