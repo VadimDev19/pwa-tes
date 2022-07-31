@@ -6,9 +6,15 @@ import "./App.css";
 
 function App() {
   const [isShowBtn, setIsShowBtn] = useState<boolean>(true);
-  // const [event, setEvent] = useState<Event | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const deferredInstall = useRef<Event | null>(null);
+
+  useEffect(() => {
+    const isInstallApp = localStorage.getItem("isInstallApp");
+    if (isInstallApp === "true") {
+      setIsShowBtn(false);
+    }
+  }, []);
   useEffect(() => {
     console.log("useEffect");
     serviceWorkerRegistration.register();
@@ -25,9 +31,9 @@ function App() {
       deferredInstall.current.prompt();
       deferredInstall.current.userChoice.then((choice) => {
         if (choice.outcome === "accepted") {
-          console.log("installed");
+          localStorage.setItem("isInstallApp", "true");
         } else {
-          console.log("cancel");
+          localStorage.setItem("isInstallApp", "false");
         }
       });
     }
@@ -43,7 +49,7 @@ function App() {
             ref={buttonRef}
             onClick={handleButtonClick}
           >
-            install app 6
+            install app 7
           </button>
         )}
       </header>
