@@ -4,13 +4,15 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import logo from "./logo.svg";
 import "./App.css";
 
+const isInstallAppKey = "isInstallApp";
+
 function App() {
   const [isShowBtn, setIsShowBtn] = useState<boolean>(true);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const deferredInstall = useRef<Event | null>(null);
 
   useEffect(() => {
-    const isInstallApp = localStorage.getItem("isInstallApp");
+    const isInstallApp = localStorage.getItem(isInstallAppKey);
     if (isInstallApp === "true") {
       setIsShowBtn(false);
     }
@@ -31,9 +33,9 @@ function App() {
       deferredInstall.current.prompt();
       deferredInstall.current.userChoice.then((choice) => {
         if (choice.outcome === "accepted") {
-          localStorage.setItem("isInstallApp", "true");
+          localStorage.setItem(isInstallAppKey, "true");
         } else {
-          localStorage.setItem("isInstallApp", "false");
+          localStorage.setItem(isInstallAppKey, "false");
         }
       });
     }
@@ -49,7 +51,7 @@ function App() {
             ref={buttonRef}
             onClick={handleButtonClick}
           >
-            install app 7
+            install app 8
           </button>
         )}
       </header>
